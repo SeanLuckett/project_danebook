@@ -1,0 +1,26 @@
+<h1>Welcome</h1>
+<p id="notice"><%= notice %></p>
+
+<div class="login-form">
+  <%= form_with url: session_path do |form| %>
+      <div>
+        <label>
+          Email:
+          <%= form.text_field :email %>
+        </label>
+      </div>
+
+      <div>
+        <label>
+          Password:
+          <%= form.password_field :password %>
+        </label>
+      </div>
+
+      <div><%= form.submit 'Login' %></div>
+  <% end %>
+</div>
+
+<div>
+  <p>Or <%= link_to 'Sign up', new_user_path %></p>
+</div>
