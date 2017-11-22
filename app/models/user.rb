@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   has_secure_password
+  has_one :profile
+  accepts_nested_attributes_for :profile, allow_destroy: true
 
   validates :email,
             presence: true,
@@ -8,5 +10,4 @@ class User < ApplicationRecord
 
   validates :password, length: { in: 8..24 }
 
-  enum sexual_ident: { who_cares: 0, female: 1, male: 2, neither: 3, both: 4 }
 end

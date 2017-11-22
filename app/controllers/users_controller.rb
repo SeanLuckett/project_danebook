@@ -16,6 +16,7 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
+    @user.build_profile
   end
 
   # GET /users/1/edit
@@ -81,13 +82,15 @@ class UsersController < ApplicationController
     params
       .require(:user)
       .permit(
-        :first_name,
-        :last_name,
         :email,
-        :birthdate,
-        :sexual_ident,
         :password,
-        :password_confirmation
+        :password_confirmation,
+        profile_attributes: [
+          :first_name,
+          :last_name,
+          :birthdate,
+          :sexual_id,
+        ]
       )
   end
 end
