@@ -7,17 +7,27 @@ RSpec.describe User, type: :model do
     expect(user.errors[:email]).to include "can't be blank"
   end
 
-  it 'is invalid without an email' do
-    user = build :user, password: nil, password_confirmation: nil
-    user.valid?
-    expect(user.errors[:password]).to include "can't be blank"
+  describe 'email' do
+    it 'is invalid without an email' do
+      user = build :user, password: nil, password_confirmation: nil
+      user.valid?
+      expect(user.errors[:password]).to include "can't be blank"
+    end
+
+    it 'email must have an @ symbol in it' do
+      user = build :user, email: 'right_length'
+      user.valid?
+      expect(user.errors[:email]).to include 'must have an @ symbol'
+    end
+
+    it 'email must be unique' do
+      u = create :user
+      new_user = build :user, email: u.email
+      new_user.valid?
+      expect(new_user.errors[:email]).to include 'has already been taken'
+    end
   end
 
-  it 'email must have an @ symbol in it' do
-    user = build :user, email: 'right_length'
-    user.valid?
-    expect(user.errors[:email]).to include 'must have an @ symbol'
-  end
 
   describe 'password' do
     it 'must be a minimum 8 characters' do
