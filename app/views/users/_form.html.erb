@@ -32,5 +32,20 @@
       <%= form.password_field :password_confirmation, class: 'form-control', placeholder: 'Confirm your password' %>
     </div>
 
+    <fieldset class="form-group">
+      <legend>Birthday</legend>
+      <%= form.date_select :birthdate,
+                           { order: [:month, :day, :year],
+                             start_year: Date.today.year - 100,
+                             end_year: Date.today.year - 12,
+                             selected: Date.today.year - 12 },
+                           class: 'custom-select' %>
+    </fieldset>
+
+    <fieldset class="form-group">
+      <legend>Sexual identity</legend>
+        <%= form.collection_select :sexual_ident, User.sexual_idents, :first, :first %>
+    </fieldset>
+
     <%= form.submit 'Sign up!', class: 'btn btn-success btn-block' %>
 <% end %>
