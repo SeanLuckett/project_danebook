@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20171122170311) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "birthdate"
-    t.string "sexual_ident"
+    t.integer "sexual_ident", default: 0
     t.index ["email"], name: "index_users_on_email"
   end
 
