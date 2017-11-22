@@ -13,23 +13,23 @@ RSpec.describe User, type: :model do
     expect(user.errors[:password]).to include "can't be blank"
   end
 
-  describe 'email address' do
+  it 'email must have an @ symbol in it' do
+    user = build :user, email: 'right_length'
+    user.valid?
+    expect(user.errors[:email]).to include 'must have an @ symbol'
+  end
+
+  describe 'password' do
     it 'must be a minimum 8 characters' do
-      user = build :user, email: 'short'
+      user = build :user, password: 'short'
       user.valid?
-      expect(user.errors[:email]).to include 'is too short (minimum is 8 characters)'
+      expect(user.errors[:password]).to include 'is too short (minimum is 8 characters)'
     end
 
     it 'is no more than 24 characters' do
-      user = build :user, email: 'long' * 7
+      user = build :user, password: 'long' * 7
       user.valid?
-      expect(user.errors[:email]).to include 'is too long (maximum is 24 characters)'
-    end
-
-    it 'must have an @ symbol in it' do
-      user = build :user, email: 'right_length'
-      user.valid?
-      expect(user.errors[:email]).to include 'must have an @ symbol'
+      expect(user.errors[:password]).to include 'is too long (maximum is 24 characters)'
     end
   end
 end
