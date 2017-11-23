@@ -11,13 +11,13 @@
 </div>
 
 <div class="row">
-  <div class="col-sm-12">
+  <div class="col-sm-6 offset-sm-3">
     <h1>Sign in</h1>
   </div>
 </div>
 
 <div class="row">
-  <div class="col-sm-12">
+  <div class="col-sm-6 offset-sm-3">
     <%= form_with url: session_path do |form| %>
         <div class="form-group">
           <label>
@@ -39,5 +39,5 @@
 </div>
 
 <div class="row">
-  <div class="col-sm-12"><p>Or <%= link_to 'Sign up', new_user_path %></p></div>
+  <div class="col-sm-6 offset-sm-3"><p>Or <%= link_to 'Sign up', new_user_path %></p></div>
 </div>
