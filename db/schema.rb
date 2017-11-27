@@ -19,6 +19,9 @@ ActiveRecord::Schema.define(version: 20171122215741) do
     t.bigint "user_id"
     t.string "first_name"
     t.string "last_name"
+    t.string "college"
+    t.string "hometown"
+    t.string "telephone"
     t.date "birthdate"
     t.integer "sexual_id", default: 0
     t.datetime "created_at", null: false
