@@ -13,7 +13,10 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    render :show, locals: { profile: @user.profile }
+    render :show, locals: {
+      profile: @user.profile,
+      address: @user.profile.address
+    }
   end
 
   # GET /users/new
