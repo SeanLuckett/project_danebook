@@ -7,6 +7,8 @@ class CreateProfiles < ActiveRecord::Migration[5.1]
       t.string :college
       t.string :hometown
       t.string :lives_in
+      t.text :words_live_by
+      t.text :about_me
       t.string :telephone
       t.date :birthdate
       t.integer :sexual_id, default: 0
