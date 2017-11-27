@@ -13,6 +13,12 @@ class ApplicationController < ActionController::Base
   end
   helper_method :logged_in_user?
 
+  def require_login
+    unless logged_in_user?
+      redirect_to login_path, notice: 'You must be signed in to do that'
+    end
+  end
+
   def sign_in(user)
     @current_user = user
     session[:user_id] = user.id

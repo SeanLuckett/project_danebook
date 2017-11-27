@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
-  before_action :require_login, only: [:edit, :update, :destroy]
+  before_action :require_login, only: [:destroy]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
-  layout 'profile', only: [:show, :edit]
+
 
   # GET /users
   # GET /users.json
@@ -13,7 +13,6 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    render :show, locals: { profile: @user.profile }
   end
 
   # GET /users/new
@@ -24,7 +23,6 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    render 'profiles/edit', locals: { profile: @user.profile }
   end
 
   # POST /users
@@ -69,12 +67,6 @@ class UsersController < ApplicationController
   end
 
   private
-
-  def require_login
-    unless logged_in_user?
-      redirect_to login_path, notice: 'You must be signed in to do that'
-    end
-  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_user
