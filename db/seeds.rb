@@ -14,10 +14,15 @@ require 'faker/phone_number'
                   password: "foo#{i}barr",
                   password_confirmation: "foo#{i}barr"
 
-  u.create_profile first_name: "Pat#{i}",
-                   last_name: "Foo",
-                   birthdate: 20.years.ago,
-                   college: Faker::Educator.university,
-                   hometown: Faker::Address.city,
-                   telephone: Faker::PhoneNumber.phone_number
+  p = u.create_profile first_name: "Pat#{i}",
+                       last_name: "Foo",
+                       birthdate: 20.years.ago,
+                       college: Faker::Educator.university,
+                       hometown: Faker::Address.city,
+                       telephone: Faker::PhoneNumber.phone_number
+
+  p.create_address street1: Faker::Address.street_address,
+                   city: Faker::Address.city,
+                   state: Faker::Address.state_abbr,
+                   postcode: Faker::Address.postcode
 end
