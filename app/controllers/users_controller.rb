@@ -13,10 +13,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    render :show, locals: {
-      profile: @user.profile,
-      address: @user.profile.address
-    }
+    render :show, locals: { profile: @user.profile }
   end
 
   # GET /users/new
@@ -27,6 +24,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    render 'profiles/edit', locals: { profile: @user.profile }
   end
 
   # POST /users

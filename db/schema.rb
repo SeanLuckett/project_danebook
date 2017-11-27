@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20171127174932) do
     t.string "last_name"
     t.string "college"
     t.string "hometown"
+    t.string "lives_in"
     t.string "telephone"
     t.date "birthdate"
     t.integer "sexual_id", default: 0

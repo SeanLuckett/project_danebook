@@ -18,11 +18,8 @@ require 'faker/phone_number'
                        last_name: "Foo",
                        birthdate: 20.years.ago,
                        college: Faker::Educator.university,
-                       hometown: Faker::Address.city,
+                       hometown: "#{Faker::Address.city}, #{Faker::Address.state_abbr}",
+                       lives_in: "#{Faker::Address.city}, #{Faker::Address.state_abbr}",
                        telephone: Faker::PhoneNumber.phone_number
 
-  p.create_address street1: Faker::Address.street_address,
-                   city: Faker::Address.city,
-                   state: Faker::Address.state_abbr,
-                   postcode: Faker::Address.postcode
 end
