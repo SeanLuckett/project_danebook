@@ -2,6 +2,8 @@ class UsersController < ApplicationController
   before_action :require_login, only: [:edit, :update, :destroy]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
+  layout 'profile', only: [:show, :edit]
+
   # GET /users
   # GET /users.json
   def index
@@ -11,6 +13,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    render :show, locals: { profile: @user.profile }
   end
 
   # GET /users/new
