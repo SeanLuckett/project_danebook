@@ -40,8 +40,9 @@
           <legend>Birthday</legend>
           <%= profile_fields.date_select :birthdate,
                                          { order: [:month, :day, :year],
-                                           start_year: Date.today.year - 100,
-                                           end_year: Date.today.year - 12 },
+                                           start_year: Date.today.year - 50,
+                                           end_year: Date.today.year - 12,
+                                           selected: Date.today.year - 21 },
                                          class: 'custom-select' %>
         </fieldset>
 
