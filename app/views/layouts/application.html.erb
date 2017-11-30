@@ -1,17 +1,27 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>AssignmentBasicAuth</title>
-    <%= csrf_meta_tags %>
+<head>
+  <title>AssignmentBasicAuth</title>
+  <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-  <body>
-    <div class="container">
-      <div class="row"><p id="notice"><%= notice %></p></div>
-      <%= yield %>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <nav class="navbar navbar-dark bg-primary">
+          <h1 class="navbar-brand text-light">Danebook</h1>
+          <%= yield :main_nav %>
+        </nav>
+      </div>
     </div>
-  </body>
+
+    <div class="row"><p id="notice"><%= notice %></p></div>
+
+    <%= yield %>
+  </div>
+</body>
 </html>
