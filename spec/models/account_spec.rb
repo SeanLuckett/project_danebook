@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Account, type: :model do
+  it 'is invalid without a user' do
+    account = build :account
+    account.valid?
+    expect(account.errors[:user]).to include "can't be created without a user"
+  end
+
   describe 'email' do
     it 'is invalid without an email' do
       account = build :account, password: nil, password_confirmation: nil

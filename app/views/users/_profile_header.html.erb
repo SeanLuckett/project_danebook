@@ -1,12 +1,9 @@
 <div class="row">
   <div class="col-sm-12 profile-large-image">
     <div class="row">
-      <div class="col-sm-3">
-        <img src="http://lorempixel.com/150/200/people" alt="">
-      </div>
-      <div class="col-sm-8">
+      <div class="col-sm-8 offset-sm-3">
         <p class="h4">
-          <%= profile.name %>
+          <%= @user.name %>
         </p>
       </div>
     </div>
@@ -20,7 +17,7 @@
     <li class="nav-item"><a class="nav-link" href="#">Friends</a></li>
     <li class="nav-item">
       <% if current_user && current_user.id == user.id %>
-          <%= link_to 'Edit profile', edit_user_profile_path(user, profile), class: 'nav-link' %>
+          <%= link_to 'Edit profile', edit_user_path(user), class: 'nav-link' %>
       <% end %>
     </li>
   </ul>

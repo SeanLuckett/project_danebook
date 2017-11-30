@@ -1,12 +1,12 @@
-<%= form_with(model: user, local: true) do |form| %>
+<%= form_with(model: account, local: true) do |form| %>
     <div class="row">
       <div class="col">
-        <% if user.errors.any? %>
+        <% if account.errors.any? %>
             <div id="error_explanation" class=" alert alert-danger">
               <h2 class="h5"><%= pluralize(user.errors.count, 'error') %>:</h2>
 
               <ul class="list-unstyled">
-                <% user.errors.full_messages.each do |message| %>
+                <% account.errors.full_messages.each do |message| %>
                     <li><%= message %></li>
                 <% end %>
               </ul>
@@ -15,10 +15,10 @@
       </div>
     </div>
 
-    <%= form.fields_for :profile do |profile_fields| %>
+    <%= form.fields_for 'user_attributes' do |user_fields| %>
         <div class="row form-group">
-          <div class="col"><%= profile_fields.text_field :first_name, class: 'form-control', placeholder: 'First name' %></div>
-          <div class="col"><%= profile_fields.text_field :last_name, class: 'form-control', placeholder: 'Last name' %></div>
+          <div class="col"><%= user_fields.text_field :first_name, class: 'form-control', placeholder: 'First name' %></div>
+          <div class="col"><%= user_fields.text_field :last_name, class: 'form-control', placeholder: 'Last name' %></div>
         </div>
     <% end %>
 
@@ -35,20 +35,20 @@
       <%= form.password_field :password_confirmation, class: 'form-control', placeholder: 'Confirm your password' %>
     </div>
 
-    <%= form.fields_for :profile do |profile_fields| %>
+    <%= form.fields_for 'user_attributes' do |user_fields| %>
         <fieldset class="form-group">
           <legend>Birthday</legend>
-          <%= profile_fields.date_select :birthdate,
-                                         { order: [:month, :day, :year],
+          <%= user_fields.date_select :birthdate,
+                                      { order: [:month, :day, :year],
                                            start_year: Date.today.year - 50,
                                            end_year: Date.today.year - 12,
                                            selected: Date.today.year - 21 },
-                                         class: 'custom-select' %>
+                                      class: 'custom-select' %>
         </fieldset>
 
         <fieldset class="form-group">
           <legend>Sexual identity</legend>
-          <%= profile_fields.collection_select :sexual_id, Profile.sexual_ids, :first, :first %>
+          <%= user_fields.collection_select :sexual_id, User.sexual_ids, :first, :first %>
         </fieldset>
     <% end %>
 
