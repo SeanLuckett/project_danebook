@@ -1,7 +1,5 @@
-require 'faker/internet'
-
 FactoryBot.define do
-  factory :user do
+  factory :account do
     sequence :email do |n|
       "#{n}#{Faker::Internet.safe_email}"
     end

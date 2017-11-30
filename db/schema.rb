@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171127174932) do
+ActiveRecord::Schema.define(version: 20171130160150) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accounts", force: :cascade do |t|
+    t.string "email", null: false
+    t.string "password_digest", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_accounts_on_email"
+  end
 
   create_table "addresses", force: :cascade do |t|
     t.bigint "profile_id"
@@ -45,13 +53,23 @@ ActiveRecord::Schema.define(version: 20171127174932) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "email", null: false
-    t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_users_on_email"
+    t.bigint "account_id"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "college"
+    t.string "hometown"
+    t.string "lives_in"
+    t.string "telephone"
+    t.text "words_live_by"
+    t.text "about_me"
+    t.date "birthdate"
+    t.integer "sexual_id", default: 0
+    t.index ["account_id"], name: "index_users_on_account_id"
   end
 
   add_foreign_key "addresses", "profiles"
   add_foreign_key "profiles", "users"
+  add_foreign_key "users", "accounts"
 end
