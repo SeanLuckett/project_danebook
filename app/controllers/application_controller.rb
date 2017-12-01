@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  #TODO reroute to root for unkown routes.
 
   private
 
@@ -27,6 +26,6 @@ class ApplicationController < ActionController::Base
 
   def sign_out
     @current_user = nil
-    session.delete :user_id
+    session.delete :user_id if session[:user_id]
   end
 end

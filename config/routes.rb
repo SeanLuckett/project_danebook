@@ -9,5 +9,6 @@ Rails.application.routes.draw do
   get '/signup', to: 'accounts#new'
 
   root to: 'sessions#new'
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  get '*path' => redirect('/logout')
 end
