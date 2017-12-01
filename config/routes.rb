@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   resources :accounts
   resources :users, only: [:show, :edit, :update]
 
+  get '/timeline/:user_id', to: 'timelines#show', as: :timeline
+
   get '/signup', to: 'accounts#new'
 
   root to: 'sessions#new'

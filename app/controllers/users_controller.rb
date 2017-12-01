@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :require_login, only: [:destroy]
+  before_action :require_login
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
 
