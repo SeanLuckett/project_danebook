@@ -30,8 +30,8 @@ about_me = 'Turnip greens yarrow ricebean rutabaga endive cauliflower sea lettuc
 
   account.save!
   account.user.posts.create([
-                              { body: Faker::DrWho.quote },
-                              { body: Faker::DrWho.quote }
+                              { body: Faker::Hipster.paragraph(4) },
+                              { body: Faker::Hipster.paragraph(4) }
                             ])
 
 end
