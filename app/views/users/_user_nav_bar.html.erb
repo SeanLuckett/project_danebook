@@ -1,0 +1,20 @@
+<div class="row">
+  <ul class="nav nav-pills col-sm-7 offset-sm-3">
+    <li class="nav-item"><a class="nav-link" href="#">Timeline</a></li>
+
+    <li class="nav-item nav-link <%= active_nav_item_if(user_path) %>">
+      <%= link_to_unless_current 'About', user_path(user) %>
+    </li>
+
+    <li class="nav-item"><a class="nav-link" href="#">Photos</a></li>
+
+    <li class="nav-item"><a class="nav-link" href="#">Friends</a></li>
+
+    <li class="nav-item">
+      <% if current_user && current_user.id == user.id %>
+          <%= link_to 'Edit profile', edit_user_path(user),
+                      class: "nav-link #{active_nav_item_if(edit_user_path)}" %>
+      <% end %>
+    </li>
+  </ul>
+</div>
