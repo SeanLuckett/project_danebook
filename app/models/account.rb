@@ -9,5 +9,5 @@ class Account < ApplicationRecord
 
   validates :password, length: { in: 8..24 }
 
-  validates :user, presence: { message: "can't be created without a user" }
+  validates :user, presence: { message: 'must exist to create account' }
 end

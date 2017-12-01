@@ -3,8 +3,10 @@ require 'rails_helper'
 RSpec.describe Account, type: :model do
   it 'is invalid without a user' do
     account = build :account
+    account.user = nil
+
     account.valid?
-    expect(account.errors[:user]).to include "can't be created without a user"
+    expect(account.errors[:user]).to include 'must exist to create account'
   end
 
   describe 'email' do
@@ -27,7 +29,6 @@ RSpec.describe Account, type: :model do
       expect(new_account.errors[:email]).to include 'has already been taken'
     end
   end
-
 
   describe 'password' do
     it 'must be a minimum 8 characters' do

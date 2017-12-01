@@ -5,5 +5,9 @@ FactoryBot.define do
     end
     password "Somepaswd2"
     password_confirmation "Somepaswd2"
+
+    after(:build) do |account|
+      account.user ||= build :user, account: account
+    end
   end
 end
