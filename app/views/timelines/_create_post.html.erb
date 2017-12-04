@@ -1,0 +1,12 @@
+<div class="card bottom-buffer">
+  <div class="card-header">Post</div>
+  <div class="card-body">
+    <%= form_with model: Post.new, url: posts_path do |form| %>
+        <%= hidden_field :user, :id, value: user.id %>
+        <div class="form-group">
+          <%= form.text_area :body, placeholder: 'Tell the world something...', class: 'form-control' %>
+        </div>
+        <%= form.submit 'Post', class: 'btn btn-primary float-right' %>
+    <% end %>
+  </div>
+</div>

@@ -9,11 +9,6 @@ class TimelinesController < ApplicationController
   private
 
   def decorated_posts(user)
-    user.posts.map { |p| PostDecorator.new(p) }
-  end
-end
-class PostDecorator < SimpleDelegator
-  def formatted_date
-    created_at.strftime '%A, %m %e %Y'
+    user.latest_posts.map { |p| PostDecorator.new(p) }
   end
 end

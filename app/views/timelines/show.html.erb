@@ -20,35 +20,12 @@
       </div>
 
       <div class="col-sm-7">
-        <div class="card">
-          <div class="card-header">Post</div>
-          <div class="card-body">
-            <!-- Post form -->
-          </div>
-        </div>
+        <% if current_user && current_user.id == user.id %>
+            <%= render partial: 'create_post', locals: { user: user } %>
+        <% end %>
 
         <% posts.each do |post| %>
-            <div class="card top-buffer">
-              <div class="card-body">
-                <p><%= link_to user.name, user_path(user) %> <br>
-                  <span class="text-secondary">Posted on <%= post.formatted_date %></span></p>
-
-                <p><%= post.body %></p>
-              </div>
-              <div class="card-header">
-                <div class="row">
-                  <div class="col-sm-5">
-                    <%= link_to 'Like', '#', class: 'mr-sm-2' %>
-                    <%= link_to 'Comment', '#' %>
-                  </div>
-                  <% if current_user && current_user.id == user.id %>
-                      <div class="col-sm-3 offset-sm-4">
-                        <%= link_to 'Delete', post_path(post), method: :delete, data: { confirm: 'You sure?' } %>
-                      </div>
-                  <% end %>
-                </div>
-              </div>
-            </div>
+            <%= render partial: 'post', locals: { post: post, user: user } %>
         <% end %>
       </div>
     </div>
