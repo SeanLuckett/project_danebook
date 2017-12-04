@@ -9,7 +9,8 @@
         <div><%= form.submit 'Search', class: 'btn btn-primary' %></div>
     <% end %>
 
-    <h1 class="navbar-brand text-light"><%= user.name %></h1>
+    <div class="navbar-text text-light"><%= user.name %></div>
+    <div class="nav-link navbar-text"><%= link_to 'logout', logout_path %></div>
 <% end %>
 
 <div class="row">
