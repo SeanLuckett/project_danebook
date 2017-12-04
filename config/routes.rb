@@ -3,7 +3,10 @@ Rails.application.routes.draw do
   resources :accounts
 
   resources :users, only: [:show, :edit, :update]
-  resources :posts, only: [:create, :destroy]
+  resources :posts, only: [:create, :destroy] do
+    resources :likes, defaults: { likable: 'Post' }, only: :create
+    delete '/like', to: 'likes#destroy'
+  end
 
   get '/login', to: 'sessions#new'
   get '/logout', to: 'sessions#destroy', method: :destroy
@@ -14,5 +17,7 @@ Rails.application.routes.draw do
 
   root to: 'sessions#new'
 
-  get '*path' => redirect('/logout')
+  unless Rails.env == 'development'
+    get '*path' => redirect('/logout')
+  end
 end
