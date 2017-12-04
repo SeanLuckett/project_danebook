@@ -2,7 +2,7 @@ class TimelinesController < ApplicationController
   before_action :require_login
 
   def show
-    user = UserDecorator.new(User.find(params[:user_id]))
+    user = UserDecorator.new(user_with_posts)
     render :show, locals: { user: user, posts: decorated_posts(user) }
   end
 
@@ -11,4 +11,9 @@ class TimelinesController < ApplicationController
   def decorated_posts(user)
     user.latest_posts.map { |p| PostDecorator.new(p) }
   end
+
+  def user_with_posts
+    User.where(id: params[:user_id]).includes(:posts).first
+  end
+
 end
