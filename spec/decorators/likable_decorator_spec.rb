@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe PostDecorator, type: :model do
+RSpec.describe LikableDecorator, type: :model do
   describe '#likes_info' do
     let(:post) { create :post }
     let(:current_user) { post.user }
@@ -14,7 +14,7 @@ RSpec.describe PostDecorator, type: :model do
 
       context 'only current_user likes post' do
         it 'tells current_user they liked it' do
-          decorated_post = PostDecorator.new(post.reload)
+          decorated_post = LikableDecorator.new(post.reload)
           expect(decorated_post.likes_info(current_user)).to eq 'You like this.'
         end
       end
@@ -22,7 +22,7 @@ RSpec.describe PostDecorator, type: :model do
       context 'current_user and 1 other like post' do
         it 'shows current_user and the other like it' do
           post.likes.create user_id: called_out_user.id
-          decorated_post = PostDecorator.new(post.reload)
+          decorated_post = LikableDecorator.new(post.reload)
 
           expect(decorated_post.likes_info(current_user))
             .to eq "You and #{called_out_user.name} like this."
@@ -32,7 +32,7 @@ RSpec.describe PostDecorator, type: :model do
       context 'current user and 2 others like post' do
         it 'shows current_user, another by name, and the likes count' do
           post.likes.create user_id: called_out_user.id
-          decorated_post = PostDecorator.new(post.reload)
+          decorated_post = LikableDecorator.new(post.reload)
 
           allow(decorated_post).to receive(:likable_count) { 3 }
           expect(decorated_post.likes_info(current_user))
@@ -43,7 +43,7 @@ RSpec.describe PostDecorator, type: :model do
       context 'current user and 3 others like post' do
         it 'shows current_user, another by name, and the likes count' do
           post.likes.create user_id: called_out_user.id
-          decorated_post = PostDecorator.new(post.reload)
+          decorated_post = LikableDecorator.new(post.reload)
 
           allow(decorated_post).to receive(:likable_count) { 4 }
           expect(decorated_post.likes_info(current_user))
@@ -63,7 +63,7 @@ RSpec.describe PostDecorator, type: :model do
         it 'shows the liker name' do
           post.likes.create user_id: other_user.id
 
-          decorated_post = PostDecorator.new(post.reload)
+          decorated_post = LikableDecorator.new(post.reload)
           expect(decorated_post.likes_info(current_user))
             .to eq "#{other_user.name} likes this."
         end
@@ -73,7 +73,7 @@ RSpec.describe PostDecorator, type: :model do
         it 'shows the liker name and 1 other like post' do
           post.likes.create user_id: other_user.id
 
-          decorated_post = PostDecorator.new(post.reload)
+          decorated_post = LikableDecorator.new(post.reload)
           allow(decorated_post).to receive(:likable_count) { 2 }
 
           expect(decorated_post.likes_info(current_user))
@@ -85,7 +85,7 @@ RSpec.describe PostDecorator, type: :model do
         it 'shows the liker name and 1 other like post' do
           post.likes.create user_id: other_user.id
 
-          decorated_post = PostDecorator.new(post.reload)
+          decorated_post = LikableDecorator.new(post.reload)
           allow(decorated_post).to receive(:likable_count) { 3 }
 
           expect(decorated_post.likes_info(current_user))

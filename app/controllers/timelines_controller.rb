@@ -9,7 +9,7 @@ class TimelinesController < ApplicationController
   private
 
   def decorated_posts(user)
-    user.latest_posts.map { |p| PostDecorator.new(p) }
+    user.latest_posts.map { |p| LikableDecorator.new(p) }
   end
 
   def user_with_posts
