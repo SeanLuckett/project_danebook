@@ -7,5 +7,19 @@
   </div>
   <div class="card-header">
     <%= render partial: 'post_actions', locals: { post: post, user: user } %>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <% if post.is_liked? %>
+          <% if post.liked_by_user? current_user %>
+          'You and'
+          <% end %>
+
+          <%= UserDecorator.new(post.likes.first.user).name %>
+          and <%= post.likable_count %> other(s) like this.
+        <% end %>
+
+      </div>
+    </div>
   </div>
 </div>
