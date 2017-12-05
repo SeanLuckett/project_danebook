@@ -12,7 +12,7 @@ RSpec.describe Post, type: :model do
     context 'when liked at least once' do
       it 'is true' do
         post.likes.create user_id: post.user.id
-        expect(post.is_liked?).to be_truthy
+        expect(post.reload.is_liked?).to be_truthy
       end
     end
 
