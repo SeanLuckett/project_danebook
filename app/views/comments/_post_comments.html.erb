@@ -1,0 +1,29 @@
+<% comments.each do |comment| %>
+  <div class="row">
+    <div class="col-sm-12">
+
+
+      <div class="card bottom-buffer">
+        <div class="card-body">
+          <p><%= link_to user.name, user_path(user) %> <br>
+            <span class="text-secondary">Posted on <%= comment.formatted_date %></span></p>
+
+          <p><%= comment.body %></p>
+        </div>
+        <div class="card-header">
+          <% if false %>
+            <%= render partial: 'post_actions', locals: { post: post, user: user } %>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <%= comment.likes_info(current_user) %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+<% end %>

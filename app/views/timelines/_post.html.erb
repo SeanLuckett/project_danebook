@@ -8,10 +8,14 @@
   <div class="card-header">
     <%= render partial: 'post_actions', locals: { post: post, user: user } %>
 
-    <div class="row">
+    <div class="row bottom-buffer">
       <div class="col-sm-12">
-        <%= post.likes_info(current_user)%>
+        <%= post.likes_info(current_user) %>
       </div>
     </div>
+
+    <%= render partial: 'comments/post_comments',
+               locals: { comments: decorated_comments(post), user: user } %>
+
   </div>
 </div>

@@ -11,6 +11,10 @@ class Post < ApplicationRecord
     likable_count > 0
   end
 
+  def latest_comments
+    comments.most_recent_first
+  end
+
   def liked_by_user?(user)
     likes.liked_by_user(user).any?
   end
