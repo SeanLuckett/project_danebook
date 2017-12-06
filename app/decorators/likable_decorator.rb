@@ -3,44 +3,57 @@ class LikableDecorator < SimpleDelegator
     created_at.strftime '%A, %m/%-d/%Y'
   end
 
+  # TODO: Extract logic to service object
   def likes_info(current_user)
     return unless is_liked?
 
-    called_out_msg = likable_count_msg = ''
+    # initialize text fragments
+    called_out_text = like_counter_text = other_or_others = ''
+    like_or_likes = 'like '
+    msg = 'this.'
 
-    if liked_by_user? current_user
-      msg = ' like this.'
-      user_msg = 'You'
+    # process likes
+    likes = likes_not_by current_user
+    other_likes_count = likes.size
+    called_out_user = likes.first.try(:user)
 
-      if liked_by_others?
-        called_out = UserDecorator.new(likes_not_by(current_user).first.user)
-        called_out_msg = " and #{called_out.name}"
-
-        if likable_count > 2
-          display_count = likable_count - 2
-          likable_count_msg = " and #{display_count} #{'other'.pluralize(display_count)}"
-        end
-      end
-
-    else
-      called_out = UserDecorator.new(likes_not_by(current_user).first.user)
-      user_msg = called_out.name
-      msg = ' likes this.'
-
-      if likable_count > 1
-        msg = ' like this.'
-        display_count = likable_count - 1
-        likable_count_msg = " and #{display_count} #{'other'.pluralize(display_count)}"
-      end
-
+    # build text fragments
+    current_user_text = liked_by_user?(current_user) ? 'You ' : ''
+    if current_and_another_user_liked?(called_out_user, current_user_text)
+      current_user_text += 'and '
     end
 
-    msg.prepend(user_msg, called_out_msg, likable_count_msg)
+    if called_out_user.present?
+      called_out_text = "#{UserDecorator.new(called_out_user).name} "
+      other_likes_count -= 1
+    end
+
+    if other_likes_count > 0
+      like_counter_text = "and #{other_likes_count} "
+      other_or_others = 'other'.pluralize(other_likes_count) + ' '
+    end
+
+    if change_like_to_likes?(called_out_user, current_user_text, other_likes_count)
+      like_or_likes = 'likes '
+    end
+
+    msg.prepend(
+      current_user_text,
+      called_out_text,
+      like_counter_text,
+      other_or_others,
+      like_or_likes
+    )
   end
 
   private
 
-  def liked_by_others?
-    likable_count > 1
+  def current_and_another_user_liked?(called_out_user, current_user_text)
+    called_out_user.present? && current_user_text.present?
+  end
+
+  def change_like_to_likes?(called_out_user, current_user_text, other_likes_count)
+    called_out_user.present? && other_likes_count.zero? &&
+      current_user_text.empty?
   end
 end

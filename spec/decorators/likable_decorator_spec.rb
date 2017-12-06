@@ -31,10 +31,13 @@ RSpec.describe LikableDecorator, type: :model do
 
       context 'current user and 2 others like post' do
         it 'shows current_user, another by name, and the likes count' do
+          another_user = create(:user)
+
           post.likes.create user_id: called_out_user.id
+          post.likes.create user_id: another_user.id
+
           decorated_post = LikableDecorator.new(post.reload)
 
-          allow(decorated_post).to receive(:likable_count) { 3 }
           expect(decorated_post.likes_info(current_user))
             .to eq "You and #{called_out_user.name} and 1 other like this."
         end
@@ -42,17 +45,22 @@ RSpec.describe LikableDecorator, type: :model do
 
       context 'current user and 3 others like post' do
         it 'shows current_user, another by name, and the likes count' do
+          another_user = create(:user)
+          one_last_user = create(:user)
+
           post.likes.create user_id: called_out_user.id
+          post.likes.create user_id: another_user.id
+          post.likes.create user_id: one_last_user.id
+
           decorated_post = LikableDecorator.new(post.reload)
 
-          allow(decorated_post).to receive(:likable_count) { 4 }
           expect(decorated_post.likes_info(current_user))
             .to eq "You and #{called_out_user.name} and 2 others like this."
         end
       end
     end
 
-    describe 'Current user without liked posts' do
+    describe 'Current user who has not liked posts' do
       let(:other_user) do
         other_user = UserDecorator.new(
           create(:user, first_name: 'Dave', last_name: 'Lister')
@@ -71,10 +79,11 @@ RSpec.describe LikableDecorator, type: :model do
 
       context 'post has 2 likes' do
         it 'shows the liker name and 1 other like post' do
+          another_user = create(:user)
           post.likes.create user_id: other_user.id
+          post.likes.create user_id: another_user.id
 
           decorated_post = LikableDecorator.new(post.reload)
-          allow(decorated_post).to receive(:likable_count) { 2 }
 
           expect(decorated_post.likes_info(current_user))
             .to eq "#{other_user.name} and 1 other like this."
@@ -83,10 +92,14 @@ RSpec.describe LikableDecorator, type: :model do
 
       context 'post has 3 likes' do
         it 'shows the liker name and 1 other like post' do
+          another_user = create(:user)
+          yet_another_user = create(:user)
+
           post.likes.create user_id: other_user.id
+          post.likes.create user_id: another_user.id
+          post.likes.create user_id: yet_another_user.id
 
           decorated_post = LikableDecorator.new(post.reload)
-          allow(decorated_post).to receive(:likable_count) { 3 }
 
           expect(decorated_post.likes_info(current_user))
             .to eq "#{other_user.name} and 2 others like this."
