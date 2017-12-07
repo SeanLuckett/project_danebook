@@ -5,9 +5,14 @@ Rails.application.routes.draw do
 
   resources :posts, only: [:create, :destroy] do
     resources :likes, defaults: { likable: 'Post' }, only: :create
-    delete '/like', to: 'likes#destroy'
+    delete '/like', to: 'likes#destroy', defaults: { likable: 'Post' }
 
-    resources :comments, only: [:create, :destroy]
+    resources :comments, only: [:create]
+  end
+
+  resources :comments, only: [:destroy] do
+    resources :likes, defaults: { likable: 'Comment' }, only: :create
+    delete '/like', to: 'likes#destroy', defaults: { likable: 'Comment' }
   end
 
 
