@@ -15,7 +15,7 @@
     </div>
 
     <%= render partial: 'comments/post_comments',
-               locals: { comments: decorated_comments(post), user: user } %>
+               locals: { comments: decorated_comments(post), post: post } %>
 
   </div>
 </div>
