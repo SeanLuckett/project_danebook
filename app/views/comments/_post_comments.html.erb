@@ -2,7 +2,6 @@
   <div class="row">
     <div class="col-sm-12">
 
-
       <div class="card bottom-buffer">
         <div class="card-body">
           <p><%= link_to UserDecorator.new(comment.user).name,
@@ -21,14 +20,7 @@
           </div>
         </div>
 
-        <div class="card-header">
-          <% if current_user && current_user.id == comment.user.id %>
-            <div class="float-right">
-              <%= link_to 'Delete', comment_path(comment), method: :delete, data: { confirm: 'You sure?' } %>
-            </div>
-          <% end %>
-        </div>
-      </div>
+
 
     </div>
   </div>

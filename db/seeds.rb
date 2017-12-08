@@ -34,4 +34,23 @@ about_me = 'Turnip greens yarrow ricebean rutabaga endive cauliflower sea lettuc
                               { body: Faker::Hipster.paragraph(4) }
                             ])
 
+  account
+    .user
+    .posts
+    .first
+    .comments
+    .create([
+              { body: Faker::Hipster.paragraph(1), user_id: account.user.id },
+              { body: Faker::Hipster.paragraph(2), user_id: account.user.id }
+            ])
+
+end
+
+10.times do
+  p = Post.all.sample
+  c = Comment.all.sample
+  u = User.all.sample
+
+  p.likes.create user_id: u.id
+  c.likes.create user_id: u.id
 end
