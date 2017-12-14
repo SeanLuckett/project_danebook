@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-sm-12">
 
-      <div class="card bottom-buffer">
+      <div class="card comment bottom-buffer">
         <div class="card-body">
           <p><%= link_to UserDecorator.new(comment.user).name,
                          user_path(comment.user) %> <br>
@@ -11,7 +11,7 @@
           <p><%= comment.body %></p>
         </div>
         <div class="card-header">
-          <%= render partial: 'post_and_comment_actions', locals: { resource: comment, user: comment.post.user } %>
+          <%= render partial: 'timelines/post_and_comment_actions', locals: { resource: comment, user: comment.post.user } %>
 
           <div class="row">
             <div class="col-sm-12">
