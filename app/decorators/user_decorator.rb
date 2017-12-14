@@ -4,6 +4,6 @@ class UserDecorator < SimpleDelegator
   end
 
   def formatted_birthdate
-    birthdate.strftime '%B %e, %Y'
+    birthdate.try(:strftime, '%B %e, %Y') || ''
   end
 end
