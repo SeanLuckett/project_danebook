@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
       redirect_to user_url(account.user), notice: 'You successfully signed in'
     else
       flash[:notice] = 'Failed login'
-      render :new
+      redirect_to root_path
     end
   end
 
