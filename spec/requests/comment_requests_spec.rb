@@ -7,9 +7,7 @@ RSpec.describe 'Comment Requests', type: :request do
 
     context 'with logged in user' do
       before do
-        post session_path, params: {
-          email: user.account.email, password: user.account.password
-        }
+        sign_in(user.account)
       end
 
       it 'creates a comment' do
@@ -37,7 +35,7 @@ RSpec.describe 'Comment Requests', type: :request do
         post post_comments_path(commentable),
              params: { comment: attributes_for(:comment, post: nil) }
 
-        expect(response).to have_http_status(:unauthorized)
+        expect(response).to redirect_to login_path
       end
     end
   end
