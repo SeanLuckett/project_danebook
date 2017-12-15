@@ -1,4 +1,6 @@
 class LikesController < ApplicationController
+  before_action :require_login
+
   def create
     liked_resource = LikedResource.new(params)
     record = liked_resource.record
