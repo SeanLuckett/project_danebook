@@ -6,7 +6,9 @@ RSpec.describe 'Timelines', type: :request do
 
     context 'with logged in user' do
       it 'succeeds' do
-        post session_path, params: { email: user.account.email, password: user.account.password }
+        post session_path, params: {
+          email: user.account.email, password: user.account.password
+        }
 
         get timeline_path(user)
         expect(response).to have_http_status(:ok)

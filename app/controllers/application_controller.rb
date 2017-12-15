@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
 
   def require_login
     unless logged_in_user?
-      redirect_to login_path, notice: 'You must be signed in to do that'
+      redirect_to login_path, status: :unauthorized, notice: 'You must be signed in to do that'
     end
   end
 

@@ -1,0 +1,46 @@
+require 'rails_helper'
+
+RSpec.describe 'Comment Requests', type: :request do
+  describe 'Post /commentts' do
+    let(:user) { create :user }
+    let(:commentable) { create :post }
+
+    context 'with logged in user' do
+      before do
+        post session_path, params: {
+          email: user.account.email, password: user.account.password
+        }
+      end
+
+      it 'creates a comment' do
+        expect {
+          post post_comments_path(commentable),
+               params: { comment: attributes_for(:comment, post: nil) }
+        }.to change(Comment, :count).by(1)
+
+        expect(response).to redirect_to timeline_path(commentable.user)
+      end
+
+      context 'bad data' do
+        it 'redirects to timeline with error message' do
+          post post_comments_path(commentable),
+               params: { comment: attributes_for(:comment, body: nil, post: nil) }
+
+          expect(flash[:notice]).to eq 'Could not save your comment.'
+          expect(response).to redirect_to timeline_path(commentable.user)
+        end
+      end
+    end
+
+    context 'with unlogged in visitor' do
+      it "redirects to timeline of the post's user" do
+        post post_comments_path(commentable),
+             params: { comment: attributes_for(:comment, post: nil) }
+
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+  end
+end
+
+# 401 not authenticated
