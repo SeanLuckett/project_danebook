@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Comment Requests', type: :request do
-  describe 'Post /commentts' do
+  describe 'Post /comments' do
     let(:user) { create :user }
     let(:commentable) { create :post }
 
@@ -20,7 +20,7 @@ RSpec.describe 'Comment Requests', type: :request do
       end
 
       context 'bad data' do
-        it 'redirects to timeline with error message' do
+        it "redirects to post's user's timeline with error message" do
           post post_comments_path(commentable),
                params: { comment: attributes_for(:comment, body: nil, post: nil) }
 
@@ -31,7 +31,7 @@ RSpec.describe 'Comment Requests', type: :request do
     end
 
     context 'with unlogged in visitor' do
-      it "redirects to timeline of the post's user" do
+      it "redirects to login path" do
         post post_comments_path(commentable),
              params: { comment: attributes_for(:comment, post: nil) }
 
@@ -40,5 +40,3 @@ RSpec.describe 'Comment Requests', type: :request do
     end
   end
 end
-
-# 401 not authenticated

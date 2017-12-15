@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  before_action :require_login
 
   def create
     current_user.posts.build post_params
