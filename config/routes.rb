@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resource :session, only: [:new, :create, :destroy]
   resources :accounts
   resources :users, only: [:show, :edit, :update]
+  resources :friendings, only: [:create]
 
   resources :posts, only: [:create, :destroy] do
     resources :likes, defaults: { likable: 'Post' }, only: :create
