@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   get '/logout', to: 'sessions#destroy', method: :destroy
 
   get '/timeline/:user_id', to: 'timelines#show', as: :timeline
+  get '/friends/:user_id', to: 'friends#index', as: :friends
 
   get '/signup', to: 'accounts#new'
 
