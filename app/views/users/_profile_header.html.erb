@@ -21,17 +21,25 @@
           <%= user.name %>
         </p>
       </div>
-      <% unless user.id == current_user.id %>
 
-        <div class="col-sm-7">
+      <div class="col-sm-7">
+
+        <% unless user.id == current_user.id %>
           <% if user.users_friended_by.include? current_user %>
-            <%= link_to 'Remove friend', '#', class: 'btn btn-primary btn-sm' %>
+            <%= link_to 'Remove friend',
+                        friending_path(user),
+                        method: :delete,
+                        class: 'btn btn-secondary btn-sm' %>
           <% else %>
-            <%= link_to 'Add as friend', friendings_path(id: user.id), method: :post, class: 'btn btn-primary btn-sm' %>
+            <%= link_to 'Add as friend',
+                        friendings_path(id: user.id),
+                        method: :post,
+                        class: 'btn btn-primary btn-sm' %>
           <% end %>
-        </div>
+        <% end %>
 
-      <% end %>
+      </div>
+
     </div>
   </div>
 </div>

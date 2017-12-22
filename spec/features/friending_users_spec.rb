@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Friending', type: :feature do
+RSpec.describe 'Friending/Unfriending', type: :feature do
   let(:visited_user) { create :user }
   let(:user) { create :user }
 
@@ -20,12 +20,34 @@ RSpec.describe 'Friending', type: :feature do
     end
   end
 
-  feature 'friending via about/profile page' do
+  feature 'unfriending via about/profile page' do
     scenario 'Signed in user friends another user' do
       visit user_path visited_user
       click_link 'Add as friend'
       expect(current_path).to eq user_path visited_user
       expect(page).to have_link 'Remove friend'
+    end
+  end
+
+  feature 'unfriending via timeline' do
+    scenario 'Signed in user friends another user' do
+      visit timeline_path visited_user
+      click_link 'Add as friend'
+
+      click_link 'Remove friend'
+      expect(current_path).to eq timeline_path visited_user
+      expect(page).to have_link 'Add as friend'
+    end
+  end
+
+  feature 'unfriending via about/profile page' do
+    scenario 'Signed in user friends another user' do
+      visit user_path visited_user
+      click_link 'Add as friend'
+
+      click_link 'Remove friend'
+      expect(current_path).to eq user_path visited_user
+      expect(page).to have_link 'Add as friend'
     end
   end
 end
