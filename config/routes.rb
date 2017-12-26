@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     delete '/like', to: 'likes#destroy', defaults: { likable: 'Comment' }
   end
 
-  resources :photos, only: [:new, :create], as: :photo_uploads
+  resources :photos, only: [:new, :create, :show]
 
 
   get '/login', to: 'sessions#new'
@@ -24,7 +24,7 @@ Rails.application.routes.draw do
 
   get '/timeline/:user_id', to: 'timelines#show', as: :timeline
   get '/friends/:user_id', to: 'friends#index', as: :friends
-  get '/photos/:user_id', to: 'photos#index', as: :photos
+  get '/photo-list/:user_id', to: 'photos#index', as: :photo_list
 
   get '/signup', to: 'accounts#new'
 

@@ -1,34 +1,24 @@
-<div class="row">
-  <div class="col-sm-10 offset-sm-1 .offset-md-1">
-    <div class="row">
-      <div class="col-sm-12">
-        <%= render partial: 'users/profile_header', locals: { user: user } %>
-      </div>
-    </div>
-
-    <div class="row top-buffer">
-      <div class="col-sm-12">
-        <div class="card">
-          <div class="card-header text-center h4">
-            Photos
-            <span class="float-right">
+<%= content_for :photo_header_addon do %>
+  <span class="float-right">
               <% if user.id == current_user.id %>
                 <%= link_to 'Add photo!',
-                            new_photo_upload_path,
+                            new_photo_path,
                             class: 'btn btn-primary btn-sm' %>
               <% end %>
             </span>
-          </div>
-          <div class="card-body">
-            <div class="row">
-              <% photos.each do |photo| %>
-                <div class="col-sm-3 bottom-buffer"><%= image_tag photo.file_path.thumb.url %></div>
-              <% end %>
-            </div>
+<% end %>
 
-          </div>
+<%= content_for :photo_content do %>
+  <div class="card-body">
+    <div class="row">
+      <% photos.each do |photo| %>
+        <div class="col-sm-3 bottom-buffer">
+          <%= link_to_if( linkable_photo?(user), image_tag(photo.file_path.thumb.url),
+                          photo_path(photo)) %>
         </div>
-      </div>
+      <% end %>
     </div>
   </div>
-</div>
+<% end %>
+
+<%= render partial: 'photos/photos_layout', locals: { user: user } %>

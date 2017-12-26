@@ -20,6 +20,8 @@ class PhotoUploader < CarrierWave::Uploader::Base
       "uploads/#{model.class.to_s.underscore}/#{model.id}"
     elsif Rails.env.production?
       "danebook/uploads/#{model.class.to_s.underscore}/#{model.id}"
+    else
+      'test/fixtures'
     end
   end
 

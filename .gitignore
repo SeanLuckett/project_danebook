@@ -25,3 +25,4 @@
 
 # Ignore Carrierwave-stored files in development env
 public/uploads
+public/test

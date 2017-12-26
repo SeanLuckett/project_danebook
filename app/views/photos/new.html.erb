@@ -1,29 +1,14 @@
-<div class="row">
-  <div class="col-sm-10 offset-sm-1 .offset-md-1">
-    <div class="row">
-      <div class="col-sm-12">
-        <%= render partial: 'users/profile_header', locals: { user: user } %>
-      </div>
-    </div>
+<%= content_for :photo_content do %>
+  <div class="card-body text-center">
+    <%= form_with model: Photo.new, url: photos_path do |form| %>
+      <p class="card-text">Select a photo from your hard drive...</p>
 
-    <div class="row top-buffer">
-      <div class="col-sm-12">
-        <div class="card">
-          <div class="card-header text-center h4">
-            Photos
-          </div>
-          <div class="card-body text-center">
-            <%= form_with model: Photo.new, url: photo_uploads_path do |form| %>
-              <p class="card-text">Select a photo from your hard drive...</p>
+      <div class="top-buffer"><%= form.file_field :file_path, accept: 'image/png,image/gif,image/jpeg' %></div>
 
-              <div class="top-buffer"><%= form.file_field :file_path, accept: 'image/png,image/gif,image/jpeg' %></div>
-
-              <div class="col-sm-12"><%= form.submit 'Upload photo', class: 'btn btn-primary btn-sm top-buffer bottom-buffer' %></div>
-              <div class="col-sm-12"><%= link_to 'Cancel', photos_path(current_user), class: 'btn btn-secondary btn-sm' %></div>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
+      <div class="col-sm-12"><%= form.submit 'Upload photo', class: 'btn btn-primary btn-sm top-buffer bottom-buffer' %></div>
+      <div class="col-sm-12"><%= link_to 'Cancel', photo_list_path(current_user), class: 'btn btn-secondary btn-sm' %></div>
+    <% end %>
   </div>
-</div>
+<% end %>
+
+<%= render partial: 'photos/photos_layout', locals: { user: user } %>

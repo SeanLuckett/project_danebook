@@ -15,11 +15,17 @@ class PhotosController < ApplicationController
 
     respond_to do |format|
       if upload.save
-        format.html { redirect_to photos_path(current_user), notice: 'Uploaded photo!' }
+        format.html { redirect_to photo_list_path(current_user), notice: 'Uploaded photo!' }
       else
         format.html { render :new, locals: { user: UserDecorator.new(current_user) }, notice: 'Failed to upload photo.' }
       end
     end
+  end
+
+  def show
+    photo = Photo.find(params[:id])
+
+    render :show, locals: { photo: photo, user: UserDecorator.new(photo.user) }
   end
 
   private

@@ -12,10 +12,10 @@ RSpec.describe 'Uploading photos' do
   end
 
   scenario 'logged in user changes mind about adding photo' do
-    visit photos_path user
+    visit photo_list_path user
     click_link 'Add photo!'
     click_link 'Cancel'
-    expect(current_path).to eq photos_path user
+    expect(current_path).to eq photo_list_path user
   end
 
   scenario "logged in user looks at another user's photos" do
