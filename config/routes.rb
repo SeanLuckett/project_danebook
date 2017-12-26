@@ -16,12 +16,15 @@ Rails.application.routes.draw do
     delete '/like', to: 'likes#destroy', defaults: { likable: 'Comment' }
   end
 
+  resources :photos, only: [:new, :create], as: :photo_uploads
+
 
   get '/login', to: 'sessions#new'
   get '/logout', to: 'sessions#destroy', method: :destroy
 
   get '/timeline/:user_id', to: 'timelines#show', as: :timeline
   get '/friends/:user_id', to: 'friends#index', as: :friends
+  get '/photos/:user_id', to: 'photos#index', as: :photos
 
   get '/signup', to: 'accounts#new'
 

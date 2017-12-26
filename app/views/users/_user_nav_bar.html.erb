@@ -8,7 +8,9 @@
       <%= link_to_unless_current 'About', user_path(user) %>
     </li>
 
-    <li class="nav-item"><a class="nav-link" href="#">Photos</a></li>
+    <li class="nav-item nav-link <%= active_nav_item_if(photos_path(user)) %>">
+      <%= link_to_unless_current 'Photos', photos_path(user) %>
+    </li>
 
     <li class="nav-item nav-link <%= active_nav_item_if(friends_path(user)) %>">
       <%= link_to_unless_current "Friends (#{user.friended_users.count})",

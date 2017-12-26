@@ -2,7 +2,6 @@ CarrierWave.configure do |config|
   if Rails.env.development?
     config.storage = :file
     config.enable_processing = true
-    config.store_dir = "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   elsif Rails.env.test?
     config.storage = :file
     config.enable_processing = false
