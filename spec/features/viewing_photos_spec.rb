@@ -21,6 +21,17 @@ RSpec.describe 'Viewing photos' do
     expect(page).to have_link(href: photo_path(photo))
   end
 
+  scenario 'signed in user cannot unfriend user and still see full-sized photo' do
+    friend = create :user
+    user.friended_users << friend
+    photo = create :photo, user: friend
+
+    visit photo_list_path friend
+    click_link(href: photo_path(photo))
+    click_link 'Remove friend'
+    expect(current_path).to eq photo_list_path friend
+  end
+
   scenario "signed in user cannot view a non-friend's, full-sized photo" do
     non_friend = create :user
     photo = create :photo, user: non_friend

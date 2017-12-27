@@ -30,11 +30,21 @@ class PhotosController < ApplicationController
 
   def show
     photo = Photo.find(params[:id])
-
-    render :show, locals: { photo: photo, user: UserDecorator.new(photo.user) }
+    if friendship_exists?(photo.user.id) || belongs_to_current_user?(photo)
+      render :show, locals: { photo: photo, user: UserDecorator.new(photo.user) }
+    else
+      redirect_to photo_list_path photo.user
+    end
   end
 
   private
+  def belongs_to_current_user?(photo)
+    photo.user.id == current_user.id
+  end
+
+  def friendship_exists?(user)
+    current_user.friended_users.exists?(user)
+  end
 
   def photo_params
     params.require(:photo).permit :file_path, :remote_file_path_url
