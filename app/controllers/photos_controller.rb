@@ -15,9 +15,15 @@ class PhotosController < ApplicationController
 
     respond_to do |format|
       if upload.save
-        format.html { redirect_to photo_list_path(current_user), notice: 'Uploaded photo!' }
+        format.html {
+          redirect_to photo_list_path(current_user),
+                      notice: 'Uploaded photo!'
+        }
       else
-        format.html { render :new, locals: { user: UserDecorator.new(current_user) }, notice: 'Failed to upload photo.' }
+        format.html {
+          render :new, locals: {
+            user: UserDecorator.new(current_user)
+          }, notice: 'Failed to upload photo.' }
       end
     end
   end
@@ -31,6 +37,6 @@ class PhotosController < ApplicationController
   private
 
   def photo_params
-    params.require(:photo).permit :file_path
+    params.require(:photo).permit :file_path, :remote_file_path_url
   end
 end

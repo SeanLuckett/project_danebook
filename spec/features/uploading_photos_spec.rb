@@ -20,7 +20,7 @@ RSpec.describe 'Uploading photos' do
 
   scenario "logged in user looks at another user's photos" do
     visited_user = create :user
-    visit photos_path visited_user
+    visit photo_list_path visited_user
     expect(page).not_to have_link 'Add photo!'
   end
 end
