@@ -37,6 +37,13 @@ class PhotosController < ApplicationController
     end
   end
 
+  def set_profile_photo
+    photo = Photo.find(params[:photo_id])
+    if current_user.update(avatar: photo.file_path.thumb.url)
+      redirect_to photo_path(photo), notice: 'Set profile photo.'
+    end
+  end
+
   private
   def belongs_to_current_user?(photo)
     photo.user.id == current_user.id

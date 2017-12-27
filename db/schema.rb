@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171222235047) do
+ActiveRecord::Schema.define(version: 20171227214950) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,8 @@ ActiveRecord::Schema.define(version: 20171222235047) do
     t.text "about_me"
     t.date "birthdate"
     t.integer "sexual_id", default: 0
+    t.string "avatar"
+    t.string "cover_img"
     t.index ["account_id"], name: "index_users_on_account_id"
   end
 

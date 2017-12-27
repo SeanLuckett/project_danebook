@@ -3,15 +3,24 @@
     <div class="row">
       <div class="col-sm-7">
         <%= image_tag photo.file_path.url, class: 'img-fluid' %>
+        <%= link_to_if user.id == current_user.id,
+                       'Set as profile',
+                       photo_set_profile_path(photo),
+                       method: :post,
+                       class: 'float-right' %>
       </div>
 
       <div class="col-sm-5">
-        <p class="card-text">
+        <div class="card-text">
+          <% if user.avatar.present? %>
+            <%= image_tag user.avatar, size: '65', class: 'float-left mr-sm-1' %>
+          <% end %>
+
           <%= user.name %><br>
           <span class="text-secondary">
                     <%= PhotoDecorator.new(photo).formatted_date %>
                   </span>
-        </p>
+        </div>
       </div>
     </div>
   </div>
