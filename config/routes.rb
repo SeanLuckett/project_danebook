@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     delete '/like', to: 'likes#destroy', defaults: { likable: 'Comment' }
   end
 
-  resources :photos, only: [:new, :create, :show] do
+  resources :photos, only: [:new, :create, :show, :destroy] do
     post '/set/profile', to: 'photos#set_profile'
     post '/set/cover', to: 'photos#set_cover'
   end

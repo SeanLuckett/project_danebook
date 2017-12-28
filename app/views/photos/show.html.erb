@@ -14,6 +14,8 @@
             <%= link_to 'Set as cover',
                         photo_set_cover_path(photo),
                         method: :post %>
+            <br>
+            <%= link_to 'Delete photo', photo_path(photo), method: :delete, data: { confirm: 'Ya sure?' } %>
           </div>
         <% end %>
 

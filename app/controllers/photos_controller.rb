@@ -37,6 +37,13 @@ class PhotosController < ApplicationController
     end
   end
 
+  def destroy
+    photo = Photo.find params[:id]
+    if photo.destroy
+      redirect_to photo_list_path(photo.user), notice: 'Deleted photo'
+    end
+  end
+
   def set_profile
     photo = Photo.find(params[:photo_id])
     if current_user.update(avatar: photo.file_path.thumb.url)
