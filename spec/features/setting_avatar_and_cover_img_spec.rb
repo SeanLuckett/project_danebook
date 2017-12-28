@@ -22,4 +22,23 @@ RSpec.describe 'Setting avatar and cover images', type: :feature do
     visit photo_path(photo)
     expect(page).not_to have_link 'Set as profile'
   end
+
+  scenario 'user sets photo as cover image' do
+    photo = create :photo, user: user
+    visit photo_path photo
+    click_link 'Set as cover'
+
+    expect(user.reload.cover_img).to eq photo.file_path.url
+    expect(current_path).to eq photo_path photo
+    expect(page).to have_content 'Set cover photo.'
+  end
+
+  scenario 'user fails to set another user photo as cover image' do
+    another_user = create :user
+    photo = create :photo, user: another_user
+    user.friended_users << another_user
+
+    visit photo_path(photo)
+    expect(page).not_to have_link 'Set as cover'
+  end
 end

@@ -16,10 +16,13 @@
 <div class="row">
   <div class="col-sm-12 profile-large-image">
     <div class="row">
+      <div class="col-sm-12">
+          <%= display_cover_image(user) %>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-sm-4 offset-sm-1 bottom-buffer">
-        <% if user.avatar.present? %>
-          <%= image_tag user.avatar, size: '125', class: 'float-left mr-sm-2' %>
-        <% end %>
+          <%= display_profile_photo(user) %>
         <p class="h4">
           <%= user.name %>
         </p>

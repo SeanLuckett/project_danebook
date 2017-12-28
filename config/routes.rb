@@ -17,7 +17,8 @@ Rails.application.routes.draw do
   end
 
   resources :photos, only: [:new, :create, :show] do
-    post '/set/profile', to: 'photos#set_profile_photo'
+    post '/set/profile', to: 'photos#set_profile'
+    post '/set/cover', to: 'photos#set_cover'
   end
 
 
