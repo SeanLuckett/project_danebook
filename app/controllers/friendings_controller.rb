@@ -10,10 +10,14 @@ class FriendingsController < ApplicationController
   end
 
   def destroy
-    unfriendly = User.find(params[:id])
-    if current_user.friended_users.destroy unfriendly
+    unfriended = User.find(params[:id])
+
+    if current_user.friended_users.exists? unfriended.id
+      current_user.friended_users.destroy unfriended
       redirect_back(fallback_location: timeline_path(current_user),
-                    notice: "You and #{unfriendly.first_name} are no longer friends.")
+                    notice: "You and #{unfriended.first_name} are no longer friends.")
+    else
+      redirect_to timeline_path(params[:id])
     end
   end
 end
