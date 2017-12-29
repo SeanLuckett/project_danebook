@@ -13,9 +13,9 @@ module ApplicationHelper
     end
   end
 
-  def display_profile_photo(user)
+  def display_profile_photo(user, size: '125', classes: 'float-left mr-sm-2')
     if user.avatar.present?
-      image_tag user.avatar, size: '125', class: 'float-left mr-sm-2'
+      image_tag user.avatar, size: size, class: classes
     end
   end
 

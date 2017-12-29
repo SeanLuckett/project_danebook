@@ -3,11 +3,12 @@ class TimelinesController < ApplicationController
 
   def show
     user = UserDecorator.new(user_with_displayables)
-    photos = user.photos.sample(9)
+
     render :show, locals: {
       user: user,
       posts: decorated_posts(user),
-      displayable_photos: photos
+      displayable_photos: user.photos.sample(9),
+      displayable_friends: user.friended_users.sample(6)
     }
   end
 

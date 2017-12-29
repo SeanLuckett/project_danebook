@@ -1,0 +1,22 @@
+<div class="card friends-widget top-buffer">
+  <div class="card-header">Friends (<%= user.friended_users.size %>)</div>
+  <div class="card-body">
+    <div class="row">
+
+      <% if displayable_friends.any? %>
+
+        <%= render partial: 'friends_widget_friend_list',
+                   locals: { displayable_friends: displayable_friends, user: user } %>
+
+      <% else %>
+
+        <div class="col-sm-12">
+          <p class="card-text text-center">
+            <%= "#{user.first_name} hasn't added any friends." %>
+          </p>
+        </div>
+
+      <% end %>
+    </div>
+  </div>
+</div>

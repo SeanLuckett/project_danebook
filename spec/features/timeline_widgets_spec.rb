@@ -47,4 +47,50 @@ RSpec.describe 'Photos and Friends widgets', type: :feature do
       end
     end
   end
+
+  feature 'Viewing the friends widget' do
+    context 'User has no friends' do
+      scenario 'Shows friend widget with "no friends" message' do
+        jimmy = create :user, first_name: 'Jimmy'
+
+        visit timeline_path jimmy
+        within '.friends-widget' do
+          expect(page).to have_content "#{jimmy.first_name} hasn't added any friends."
+        end
+      end
+    end
+
+    context 'User has between 1 and 6 friends' do
+      before do
+        2.times { user.friended_users << create(:user) }
+      end
+
+      scenario 'User timeline shows friend widget with friends' do
+        friend = user.friended_users.first
+        friend.update(first_name: 'Harry', last_name: 'Henderson')
+        visit timeline_path user
+
+        within '.friends-widget' do
+          expect(page).to have_content "Friends (#{user.friended_users.count})"
+          expect(page).not_to have_link 'See more friends'
+
+          click_link "#{friend.first_name} #{friend.last_name}"
+          expect(current_path).to eq timeline_path(friend)
+        end
+      end
+    end
+
+    context 'User has more than 6 friends' do
+      before do
+        7.times { user.friended_users << create(:user) }
+      end
+
+      scenario 'Friends widget shows a link to more friends' do
+        visit timeline_path user
+
+        click_link 'See more friends'
+        expect(current_path).to eq friends_path user
+      end
+    end
+  end
 end
