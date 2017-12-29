@@ -28,8 +28,8 @@ RSpec.describe 'Like requests', type: :request do
     end
 
     context 'Likable is Comment' do
-      let(:user_comment) { create :comment }
-      let(:user) { user_comment.post.user }
+      let(:user_comment) { create :comment_for_post }
+      let(:user) { user_comment.commentable.user }
 
       context 'with logged in user' do
         before do
@@ -39,7 +39,10 @@ RSpec.describe 'Like requests', type: :request do
           post comment_likes_path(user_comment)
         end
 
-        specify { expect(response).to redirect_to timeline_path(user_comment.post.user) }
+        specify do
+          expect(response)
+            .to redirect_to timeline_path(user_comment.commentable.user)
+        end
 
         it 'creates a :like for the post' do
           expect(user_comment.reload.likable_count).to eq 1

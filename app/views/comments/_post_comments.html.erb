@@ -11,7 +11,7 @@
           <p><%= comment.body %></p>
         </div>
         <div class="card-header">
-          <%= render partial: 'timelines/post_and_comment_actions', locals: { resource: comment, user: comment.post.user } %>
+          <%= render partial: 'timelines/post_and_comment_actions', locals: { resource: comment, user: comment.commentable.user } %>
 
           <div class="row">
             <div class="col-sm-12">

@@ -15,10 +15,10 @@ class CommentsController < ApplicationController
 
   def destroy
     comment = Comment.find(params[:id])
-    poster = comment.post.user
+    commentable_owner = comment.commentable.user
 
     msg = comment.destroy ? 'Comment deleted' : 'Failed to delete comment'
-    redirect_to timeline_path(poster), notice: msg
+    redirect_to timeline_path(commentable_owner), notice: msg
   end
 
   private

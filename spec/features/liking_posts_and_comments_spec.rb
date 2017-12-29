@@ -14,8 +14,9 @@ RSpec.feature "LikingPostsAndComments", type: :feature do
   end
 
   scenario 'liking a comment' do
-    create :comment, post: post, body: 'My comment'
-    sign_in post.user
+    comment = create :comment_for_post, body: 'My comment'
+    posted = comment.commentable
+    sign_in posted.user
 
     click_link 'Timeline'
 

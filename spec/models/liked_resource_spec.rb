@@ -13,11 +13,11 @@ RSpec.describe LikedResource, type: :model do
     end
 
     context 'when resource is a comment' do
-      let(:comment) { create :comment }
+      let(:comment) { create :comment_for_post }
       let(:params) { { likable: 'Comment', comment_id: comment.id } }
       let(:liked_resource) { LikedResource.new(params) }
 
-      specify { expect(liked_resource.user).to eq comment.post.user }
+      specify { expect(liked_resource.user).to eq comment.commentable.user }
       specify { expect(liked_resource.type).to eq 'Comment' }
       specify { expect(liked_resource.record).to eq comment }
     end

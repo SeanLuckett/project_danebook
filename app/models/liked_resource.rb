@@ -9,6 +9,6 @@ class LikedResource
   end
 
   def user
-    @type == 'Post' ? @record.user : @record.post.user
+    @type == 'Comment' ? @record.commentable.user : @record.user
   end
 end
