@@ -1,0 +1,13 @@
+<% displayable_photos.each do |photo| %>
+  <div class="col-sm-4">
+    <%= image_tag photo.file_path.thumb.url, class: 'img-thumbnail' %>
+  </div>
+<% end %>
+
+<% if user.photos.size > 9 %>
+  <p class="card-text text-center">
+
+    <%= link_to 'See more photos', photo_list_path(user) %>
+
+  </p>
+<% end %>

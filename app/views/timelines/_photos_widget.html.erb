@@ -1,0 +1,19 @@
+<div class="card photos-widget top-buffer">
+  <div class="card-header">Photos (<%= user.photos.size %>)</div>
+  <div class="card-body">
+    <div class="row">
+      <% if displayable_photos.any? %>
+
+        <%= render partial: 'photos_widget_photo_list',
+                   locals: { displayable_photos: displayable_photos, user: user } %>
+
+      <% else %>
+        <div class="col-sm-12">
+          <p class="card-text text-center">
+            <%= "#{user.first_name} hasn't uploaded any photos." %>
+          </p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

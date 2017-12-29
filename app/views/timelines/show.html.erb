@@ -17,6 +17,10 @@
             <p class="card-text"><strong>Lives in:</strong> <%= user.lives_in %></p>
           </div>
         </div>
+
+        <%= render partial: 'photos_widget',
+                   locals: { displayable_photos: displayable_photos, user: user } %>
+
       </div>
 
       <div class="col-sm-7">
