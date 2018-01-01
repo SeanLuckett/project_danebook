@@ -5,7 +5,9 @@
 <% end %>
 
 <% if user.photos.size > 9 %>
-  <p class="card-text text-center">
-    <%= link_to 'See more photos', photo_list_path(user) %>
-  </p>
+  <div class="col-sm-12">
+    <p class="card-text text-center">
+      <%= link_to 'See more photos', photo_list_path(user) %>
+    </p>
+  </div>
 <% end %>

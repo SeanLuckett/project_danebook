@@ -2,13 +2,14 @@ class CommentsController < ApplicationController
   before_action :require_login
 
   def create
-    post = Post.find params[:post_id]
-    post.comments.build comment_params.merge(user_id: current_user.id)
+    commentable = params[:commentable].constantize.find params["#{params[:commentable].downcase}_id".to_sym]
+    commentable.comments.build comment_params.merge(user_id: current_user.id)
 
     respond_to do |format|
-      msg = post.save ? 'Comment commented, or commented comment, if you will!' : 'Could not save your comment.'
+      msg = commentable.save ? 'Comment commented, or commented comment, if you will!' : 'Could not save your comment.'
       format.html {
-        redirect_to timeline_path(post.user), notice: msg
+        redirect_back(fallback_location: timeline_path(commentable.user),
+                      notice: msg)
       }
     end
   end
@@ -18,7 +19,8 @@ class CommentsController < ApplicationController
     commentable_owner = comment.commentable.user
 
     msg = comment.destroy ? 'Comment deleted' : 'Failed to delete comment'
-    redirect_to timeline_path(commentable_owner), notice: msg
+    redirect_back(fallback_location: timeline_path(commentable_owner),
+                  notice: msg)
   end
 
   private

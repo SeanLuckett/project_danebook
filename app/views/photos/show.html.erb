@@ -22,16 +22,30 @@
       </div>
 
       <div class="col-sm-5">
-        <div class="card-text">
-          <% if user.avatar.present? %>
-            <%= image_tag user.avatar, size: '65', class: 'float-left mr-sm-1' %>
-          <% end %>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="card-text">
+              <%= display_profile_photo(user, size: '65', classes: 'img-thumbnail float-left mr-sm-1') %>
 
-          <%= user.name %><br>
-          <span class="text-secondary">
+              <%= user.name %><br>
+              <span class="text-secondary">
                     <%= PhotoDecorator.new(photo).formatted_date %>
                   </span>
+            </div>
+          </div>
         </div>
+
+        <div class="row top-buffer">
+          <div class="col-sm-12">
+            <div class="card-text">
+              <%= render partial: 'comments/form',
+                         locals: { commentable: photo } %>
+            </div>
+          </div>
+        </div>
+
+        <%= render partial: 'comments/comments', locals: { comments: comments } %>
+
       </div>
     </div>
   </div>

@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     resources :likes, defaults: { likable: 'Post' }, only: :create
     delete '/like', to: 'likes#destroy', defaults: { likable: 'Post' }
 
-    resources :comments, only: [:create]
+    resources :comments, only: [:create], defaults: { commentable: 'Post' }
   end
 
   resources :comments, only: [:destroy] do
@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   resources :photos, only: [:new, :create, :show, :destroy] do
     post '/set/profile', to: 'photos#set_profile'
     post '/set/cover', to: 'photos#set_cover'
+
+    resources :comments, only: [:create], defaults: { commentable: 'Photo' }
   end
 
 

@@ -1,29 +1,3 @@
-<% comments.each do |comment| %>
-  <div class="row">
-    <div class="col-sm-12">
+<%= render partial: 'comments/comments', locals: {comments: comments } %>
 
-      <div class="card comment bottom-buffer">
-        <div class="card-body">
-          <p><%= link_to UserDecorator.new(comment.user).name,
-                         user_path(comment.user) %> <br>
-            <span class="text-secondary">Posted on <%= comment.formatted_date %></span></p>
-
-          <p><%= comment.body %></p>
-        </div>
-        <div class="card-header">
-          <%= render partial: 'timelines/post_and_comment_actions', locals: { resource: comment, user: comment.commentable.user } %>
-
-          <div class="row">
-            <div class="col-sm-12">
-              <%= comment.likes_info(current_user) %>
-            </div>
-          </div>
-        </div>
-
-
-
-    </div>
-  </div>
-<% end %>
-
-<%= render partial: 'comments/form', locals: { post: post } %>
+<%= render partial: 'comments/form', locals: { commentable: post } %>
