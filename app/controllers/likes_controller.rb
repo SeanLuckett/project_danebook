@@ -14,7 +14,7 @@ class LikesController < ApplicationController
             'Unable to process this like!'
           end
 
-    redirect_to timeline_path(timeline_user), notice: msg
+    redirect_back(fallback_location: timeline_path(timeline_user), notice: msg)
   end
 
   def destroy
@@ -25,7 +25,7 @@ class LikesController < ApplicationController
     current_user_like = liked_resource.record.likes.liked_by_user(current_user)
 
     msg = current_user_like.destroy_all ? "You unliked #{liked_resource.type.downcase} by #{timeline_user.first_name}." : 'Could not unlike!'
-    redirect_to timeline_path(timeline_user), notice: msg
+    redirect_back(fallback_location: timeline_user, notice: msg)
   end
 
   private

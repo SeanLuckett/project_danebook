@@ -29,8 +29,16 @@
 
               <%= user.name %><br>
               <span class="text-secondary">
-                    <%= PhotoDecorator.new(photo).formatted_date %>
+                    <%= photo.formatted_date %>
                   </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="card-text">
+              <%= likable_actions photo %>
             </div>
           </div>
         </div>

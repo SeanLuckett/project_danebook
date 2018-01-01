@@ -3,6 +3,11 @@ class Photo < ApplicationRecord
 
   belongs_to :user
   has_many :comments, as: :commentable, dependent: :destroy
+  has_many :likes, as: :likable, dependent: :destroy
 
   validates :file_path, presence: true
+
+  def liked_by_user?(user)
+    likes.liked_by_user(user).any?
+  end
 end

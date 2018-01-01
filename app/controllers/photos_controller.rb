@@ -30,9 +30,11 @@ class PhotosController < ApplicationController
 
   def show
     photo = Photo.find(params[:id])
+
     if friendship_exists?(photo.user.id) || belongs_to_current_user?(photo)
       render :show, locals: {
-        photo: photo, user: UserDecorator.new(photo.user),
+        photo: PhotoDecorator.new(photo),
+        user: UserDecorator.new(photo.user),
         comments: photo.comments.map { |c| LikableDecorator.new(c) }
       }
     else

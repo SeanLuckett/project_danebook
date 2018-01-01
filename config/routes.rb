@@ -20,6 +20,9 @@ Rails.application.routes.draw do
     post '/set/profile', to: 'photos#set_profile'
     post '/set/cover', to: 'photos#set_cover'
 
+    resources :likes, defaults: { likable: 'Photo' }, only: :create
+    delete '/like', to: 'likes#destroy', defaults: { likable: 'Photo' }
+
     resources :comments, only: [:create], defaults: { commentable: 'Photo' }
   end
 

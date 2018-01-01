@@ -19,6 +19,16 @@ module ApplicationHelper
     end
   end
 
+  def likable_actions(resource)
+    if resource.liked_by_user? current_user
+      link_to('Unlike', url_for([resource, :like]),
+              method: :delete, class: 'mr-sm-2')
+    else
+      link_to('Like', url_for([resource, :likes]),
+              method: :post, class: 'mr-sm-2')
+    end
+  end
+
   def linkable_photo?(user)
     user.id == current_user.id || current_user.friended_users.exists?(user.id)
   end
