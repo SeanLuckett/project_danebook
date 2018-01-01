@@ -39,6 +39,7 @@
           <div class="col-sm-12">
             <div class="card-text">
               <%= likable_actions photo %>
+              <%= LikableDecorator.new(photo).likes_info(current_user) %>
             </div>
           </div>
         </div>

@@ -12,6 +12,7 @@ RSpec.describe 'Liking photos', type: :feature do
     expect(photo.likes.count).to eq 1
     expect(current_path).to eq photo_path(photo)
     expect(page).to have_content "You liked photo by #{photo.user.first_name}!"
+    expect(page).to have_content 'You like this.'
   end
 
   scenario 'signed in user unlikes a photo' do

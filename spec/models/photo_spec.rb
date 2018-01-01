@@ -20,4 +20,24 @@ RSpec.describe Photo, type: :model do
       expect(photo.liked_by_user?(user)).to eq false
     end
   end
+
+  describe '#is_liked?' do
+    it 'returns true if liked' do
+      photo = create :photo
+      photo.likes.create user_id: create(:user).id
+      expect(photo.reload.is_liked?).to eq true
+    end
+  end
+
+  describe '#likes_not_by' do
+    it 'returns collection minus any belonging to a user' do
+      photo = create :photo
+      user = photo.user
+      photo.likes.create user_id: user.id
+      photo.likes.create user_id: create(:user).id
+
+      photo.reload
+      expect(photo.likes_not_by(user).map(&:user_id)).not_to include user.id
+    end
+  end
 end
