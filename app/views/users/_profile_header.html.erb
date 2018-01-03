@@ -9,7 +9,7 @@
     <div><%= form.submit 'Search', class: 'btn btn-primary' %></div>
   <% end %>
 
-  <div class="navbar-text text-light"><%= user.name %></div>
+  <div class="navbar-text text-light"><%= UserDecorator.new(current_user).name %></div>
   <div class="nav-link navbar-text"><%= link_to 'logout', logout_path %></div>
 <% end %>
 
