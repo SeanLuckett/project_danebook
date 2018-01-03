@@ -3,6 +3,10 @@ class LikableDecorator < SimpleDelegator
     created_at.strftime '%A, %m/%-d/%Y'
   end
 
+  def liked_by_user?(user)
+    likes.liked_by_user(user).any?
+  end
+
   # TODO: Extract logic to service object
   def likes_info(current_user)
     return unless is_liked?
@@ -55,5 +59,13 @@ class LikableDecorator < SimpleDelegator
   def change_like_to_likes?(called_out_user, current_user_text, other_likes_count)
     called_out_user.present? && other_likes_count.zero? &&
       current_user_text.empty?
+  end
+
+  def is_liked?
+    likable_count > 0
+  end
+
+  def likes_not_by(user)
+    likes.where.not(user_id: user.id)
   end
 end
