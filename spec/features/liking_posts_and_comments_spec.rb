@@ -5,7 +5,7 @@ RSpec.feature "LikingPostsAndComments", type: :feature do
 
   before do
     sign_in post.user
-    click_link 'Timeline'
+    visit timeline_path(post.user)
   end
 
   scenario 'liking a post' do
@@ -18,7 +18,7 @@ RSpec.feature "LikingPostsAndComments", type: :feature do
     posted = comment.commentable
     sign_in posted.user
 
-    click_link 'Timeline'
+    visit timeline_path posted.user
 
     within(:css, '.comment') do
       click_link 'Like'

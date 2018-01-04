@@ -28,7 +28,7 @@
 
       <div class="col-sm-7">
         <% if current_user && current_user.id == user.id %>
-          <%= render partial: 'create_post', locals: { user: user } %>
+          <%= render partial: 'timelines/create_post', locals: { user: user } %>
         <% end %>
 
         <% posts.each do |post| %>

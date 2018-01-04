@@ -6,7 +6,7 @@
     <p><%= post.body %></p>
   </div>
   <div class="card-header">
-    <%= render partial: 'post_and_comment_actions', locals: { resource: post, user: user } %>
+    <%= render partial: 'timelines/post_and_comment_actions', locals: { resource: post, user: user } %>
 
     <div class="row bottom-buffer">
       <div class="col-sm-12">

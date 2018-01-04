@@ -1,0 +1,40 @@
+<% content_for :main_nav do %>
+  <%= form_with url: '#', class: 'form-inline' do |form| %>
+    <div class="form-control">
+      <%= form.search_field :user,
+                            placeholder: 'Search for users',
+                            class: 'col-sm-10' %>
+    </div>
+
+    <div><%= form.submit 'Search', class: 'btn btn-primary' %></div>
+  <% end %>
+
+  <div class="navbar-text text-light"><%= UserDecorator.new(current_user).name %></div>
+  <div class="nav-link navbar-text"><%= link_to 'logout', logout_path %></div>
+<% end %>
+
+<div class="row">
+  <div class="col-sm-10 offset-sm-1 .offset-md-1">
+    <div class="row top-buffer">
+      <div class="col-sm-4">
+        <div class="card">
+          <!--<div class="card-header">Recently active</div>-->
+          <div class="card-body">
+          </div>
+        </div>
+
+      </div>
+      <div class="col-sm-8">
+        <%= render partial: 'timelines/create_post' %>
+
+        <% posts.each do |post| %>
+          <%= render partial: 'timelines/post',
+                     locals: {
+                         post: LikableDecorator.new(post),
+                         user: UserDecorator.new(post.user)
+                     } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

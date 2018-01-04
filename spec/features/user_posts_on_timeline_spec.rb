@@ -7,7 +7,7 @@ RSpec.feature 'User posts timeline', type: :feature do
     before do
       user = create :user
       sign_in user
-      click_link 'Timeline'
+      visit timeline_path user
 
       fill_in 'post[body]', with: post_msg
       click_button 'Post'

@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new'
   get '/logout', to: 'sessions#destroy', method: :destroy
 
+  get '/newsfeed/:user_id', to: 'newsfeeds#show', as: :newsfeed
   get '/timeline/:user_id', to: 'timelines#show', as: :timeline
   get '/friends/:user_id', to: 'friends#index', as: :friends
   get '/photo-list/:user_id', to: 'photos#index', as: :photo_list

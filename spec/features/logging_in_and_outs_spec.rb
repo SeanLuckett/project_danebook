@@ -6,7 +6,7 @@ RSpec.feature "LoggingInAndOuts", type: :feature do
   scenario 'user logs in' do
     sign_in user
 
-    expect(current_path).to eq user_path(user)
+    expect(current_path).to eq newsfeed_path(user)
     expect(page).to have_content 'You successfully signed in'
   end
 
