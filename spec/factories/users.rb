@@ -1,5 +1,7 @@
 FactoryBot.define do
   factory :user do
-    account
+    after(:build) do |user|
+      user.account ||= create :account, user: user
+    end
   end
 end

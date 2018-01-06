@@ -3,11 +3,15 @@ class NewsfeedsController < ApplicationController
 
   def show
     if current_user.id == params[:user_id].to_i
-      friend_ids = current_user.friended_user_ids << current_user.id
-      friend_posts = Post.where(user_id: friend_ids).most_recent_first
+      friend_ids = current_user.friended_user_ids
+      friend_posts = Post.where(user_id: friend_ids)
 
-      render :show, locals: { posts: friend_posts,
-                              active_friend_posts: friend_posts.within_days(3) }
+      all_posts = friend_posts.or(current_user.posts)
+
+      render :show, locals: {
+        posts: all_posts.most_recent_first,
+        active_friend_posts: friend_posts.most_recent_first.within_days(3)
+      }
     else
       redirect_to newsfeed_path current_user
     end
