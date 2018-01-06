@@ -6,7 +6,8 @@ class NewsfeedsController < ApplicationController
       friend_ids = current_user.friended_user_ids << current_user.id
       friend_posts = Post.where(user_id: friend_ids).most_recent_first
 
-      render :show, locals: { posts: friend_posts }
+      render :show, locals: { posts: friend_posts,
+                              active_friend_posts: friend_posts.within_days(3) }
     else
       redirect_to newsfeed_path current_user
     end

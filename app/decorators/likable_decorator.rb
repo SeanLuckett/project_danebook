@@ -1,6 +1,6 @@
 class LikableDecorator < SimpleDelegator
   def formatted_date
-    created_at.strftime '%A, %m/%-d/%Y'
+    created_at.strftime '%A, %-m/%-d/%Y'
   end
 
   def liked_by_user?(user)

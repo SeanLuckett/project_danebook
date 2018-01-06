@@ -6,6 +6,7 @@ class Post < ApplicationRecord
   validates :body, presence: true
 
   scope :most_recent_first, -> { order(created_at: :desc) }
+  scope :within_days, ->(number) { where('created_at > ?', number.days.ago) }
 
   def latest_comments
     comments.most_recent_first

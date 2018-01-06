@@ -17,13 +17,24 @@
   <div class="col-sm-10 offset-sm-1 .offset-md-1">
     <div class="row top-buffer">
       <div class="col-sm-4">
-        <div class="card">
-          <!--<div class="card-header">Recently active</div>-->
-          <div class="card-body">
+        <div class="row">
+          <div class="col-sm-4">
+            <%= display_profile_photo(current_user, classes: 'img-thumbnail') %>
           </div>
+          <div class="col-sm-8">
+            <%= link_to UserDecorator.new(current_user).name,
+                        user_path(current_user) %>
+            <br>
+            <%= link_to 'Edit profile', edit_user_path(current_user) %>
+          </div>
+
         </div>
 
+        <%= render partial: 'active_friends',
+                   locals: { active_friend_posts: active_friend_posts } %>
+
       </div>
+
       <div class="col-sm-8">
         <%= render partial: 'timelines/create_post' %>
 

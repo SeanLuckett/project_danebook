@@ -1,0 +1,22 @@
+<div class="row">
+  <h2 class="h4 col-sm-12 top-buffer">Recently active</h2>
+</div>
+
+<div class="recently-active-friends">
+  <% active_friend_posts.each do |post| %>
+    <div class="row">
+      <div class="col-sm-3">
+        <%= display_profile_photo(post.user, classes: 'img-thumbnail') %>
+      </div>
+      <div class="col-sm-9">
+        <%= link_to UserDecorator.new(post.user).name,
+                    user_path(post.user) %>
+        <br>
+        <p class="text-secondary text-small-80">
+          <span>Posted on</span>
+          <%= LikableDecorator.new(post).formatted_date %>
+        </p>
+      </div>
+    </div>
+  <% end %>
+</div>
