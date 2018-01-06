@@ -43,6 +43,8 @@ gem 'fog-aws'
 
 gem 'figaro', '~> 1.1.1'
 
+gem 'delayed_job_active_record', '~> 4.1.2'
+
 gem 'capybara', '~> 2.14.4', group: :test
 
 group :development, :test do
