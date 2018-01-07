@@ -11,6 +11,7 @@ class AccountsController < ApplicationController
     respond_to do |format|
       if account.save
         sign_in account.user
+        SendWelcomeEmail.delay_optional(account.user.id)
 
         format.html do
           redirect_to user_path(account.user),
