@@ -44,6 +44,11 @@ RSpec.feature 'UserSignUps', type: :feature do
           user = Account.find_by(email: email).user
           expect { SendWelcomeEmail.delay_optional(user.id) }
             .not_to have_enqueued_job.on_queue 'mailers'
+
+          expect { SendWelcomeEmail.delay_optional(user.id) }
+            .to change(ActionMailer::Base.deliveries, :count).by 1
+
+          expect(ActionMailer::Base.deliveries.first.to).to eq [email]
         end
       end
     end
