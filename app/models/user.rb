@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  belongs_to :account
+  belongs_to :account, dependent: :destroy
   has_many :posts
   has_many :photos
 
@@ -13,6 +13,8 @@ class User < ApplicationRecord
   has_many :users_friended_by, through: :received_friendings, source: :friend_initiator
 
   enum sexual_id: { who_cares: 0, female: 1, male: 2, neither: 3, both: 4 }
+
+  validates :first_name, presence: true
 
   def latest_posts
     posts.most_recent_first
