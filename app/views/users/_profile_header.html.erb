@@ -17,33 +17,29 @@
   <div class="col-sm-12 profile-large-image">
     <div class="row">
       <div class="col-sm-12">
-          <%= display_cover_image(user) %>
+        <%= display_cover_image(user) %>
+        <%= display_profile_photo(user, classes: 'profile-pic-container') %>
+        <h1 class="h4 user-name text-light"><%= user.name %></h1>
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-4 offset-sm-1 bottom-buffer">
-          <%= display_profile_photo(user) %>
-        <p class="h4">
-          <%= user.name %>
-        </p>
-      </div>
-
       <div class="col-sm-7">
 
-        <% unless user.id == current_user.id %>
-          <% if user.users_friended_by.include? current_user %>
-            <%= link_to 'Remove friend',
-                        friending_path(user),
-                        method: :delete,
-                        class: 'btn btn-secondary btn-sm' %>
-          <% else %>
-            <%= link_to 'Add as friend',
-                        friendings_path(id: user.id),
-                        method: :post,
-                        class: 'btn btn-primary btn-sm' %>
+        <div class="friend-button">
+          <% unless user.id == current_user.id %>
+            <% if user.users_friended_by.include? current_user %>
+              <%= link_to 'Remove friend',
+                          friending_path(user),
+                          method: :delete,
+                          class: 'btn btn-secondary btn-sm' %>
+            <% else %>
+              <%= link_to 'Add as friend',
+                          friendings_path(id: user.id),
+                          method: :post,
+                          class: 'btn btn-primary btn-sm' %>
+            <% end %>
           <% end %>
-        <% end %>
-
+        </div>
       </div>
 
     </div>
