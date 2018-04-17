@@ -75,7 +75,7 @@ Rails.application.configure do
     domain: 'heroku.com'
   }
   config.action_mailer.default_url_options = {
-    host: 'murmuring-ridge-84887.herokuapp.com'
+    host: 'sluckett-danebook-project.herokuapp.com'
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
